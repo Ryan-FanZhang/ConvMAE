@@ -8,9 +8,6 @@ Compared to traditional Masked Autoencoder (MAE) frameworks, CoMAE offers two ma
 
 - It uses a fully convolutional architecture instead of fully connected layers to generate masks and reconstruct images, reducing parameter count and computation while preserving spatial information.
 - It adopts a multi-scale masking strategy rather than fixed-size masks, improving the model’s ability to capture features at different spatial scales.
-[FCMAE(fully convolutional masked autoencoder framework)](https://github.com/Jacky-Android/convnext-v2-pytorch/blob/main/fcmae_model.py)
-
-![image](https://github.com/Jacky-Android/convnext-v2-pytorch/assets/55181594/cb3f3944-c0b6-4bba-86b3-d38f75fadcc6)
 
 ### torchinfo Output Code
 ```python
