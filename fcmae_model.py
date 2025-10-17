@@ -26,7 +26,8 @@ class FCMAE(nn.Module):
                 decoder_embed_dim=512,
                 patch_size=32,
                 mask_ratio=0.6,
-                norm_pix_loss=False):
+                norm_pix_loss=False,
+                device="cuda" if torch.cuda.is_available() else "cpu"):
         super().__init__()
 
         # configs
@@ -42,12 +43,12 @@ class FCMAE(nn.Module):
 
         # encoder
         self.encoder = SparseConvNeXtV2(
-            in_chans=in_chans, depths=depths, dims=dims, D=2)
+            in_chans=in_chans, depths=depths, dims=dims, D=2).to(device)
         # decoder
         self.proj = nn.Conv2d(
             in_channels=dims[-1], 
             out_channels=decoder_embed_dim, 
-            kernel_size=1)
+            kernel_size=1).to(device)
         # mask tokens
         self.mask_token = nn.Parameter(torch.zeros(1, decoder_embed_dim, 1, 1))
         decoder = [Block(
@@ -60,7 +61,8 @@ class FCMAE(nn.Module):
             out_channels=patch_size ** 2 * in_chans,
             kernel_size=1)
 
-        
+        # Store device for later use
+        self.device = device
 
     
     

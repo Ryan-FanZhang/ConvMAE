@@ -71,9 +71,10 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, lr_scheduler):
     data_loader = tqdm(data_loader, file=sys.stdout)
     for step, data in enumerate(data_loader):
         images, labels = data
+        images, labels = images.to(device), labels.to(device)  # Move data to device
         sample_num += images.shape[0]
 
-        loss, pred, mask = model(images.to(device))
+        loss, pred, mask = model(images)
         
 
         loss.backward()
